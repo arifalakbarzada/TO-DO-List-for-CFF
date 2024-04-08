@@ -6,14 +6,14 @@ const addTodo = document.querySelector('.add-button');
 const sort = document.querySelector('#sort');
 const plusBtn = document.querySelector(".plusBtn");
 let todos = [];
-
+let f = true;
 if (localStorage.getItem('todos')) {
     todos = JSON.parse(localStorage.getItem('todos'));
     todoUptate();
 }
 
 if (todoList.innerHTML.trim() === ``) {
-    todoListContent.style.display = `none`;
+    todoList.style.display = `none`;
 }
 
 function todoUptate() {
@@ -52,8 +52,16 @@ function createTodo() {
 };
 
 function sortTodos() {
-    todoList.innerHTML = ``;
+   f = !f; 
+   todoList.innerHTML = ``;
+   if (f) {
     todos.sort();
+    sort.innerHTML = `<i class="fa-solid fa-arrow-down-short-wide"></i>`;
+   }
+    else{
+        todos.sort().reverse();
+        sort.innerHTML = `<i class="fa-solid fa-arrow-up-short-wide"></i>`;
+    }
     todoUptate();
 }
 
