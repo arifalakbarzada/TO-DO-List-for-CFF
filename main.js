@@ -1,14 +1,17 @@
 const todoListContent = document.querySelector(`.todoListContent`);
 const todoList = document.querySelector('.todoList');
-const btnDeleteVal = document.getElementById('btnDeleteVal');
+const btnDeleteVal = document.querySelector('#btnDeleteVal');
 const inputTodo = document.querySelector(".inputTodo");
 const addTodo = document.querySelector('.add-button');
 const sort = document.querySelector('#sort');
+const plusBtn = document.querySelector( ".plusBtn" );
 let todos = [];
+
 if (todoList.innerHTML.trim() === ``) {
     todoListContent.style.display = `none`;
 }
-function render() {
+
+function todoUptate() {
     todos.forEach((item, index) => {
         let elemLi = document.createElement("li");
         elemLi.innerText = item;
@@ -34,7 +37,7 @@ function createTodo() {
     if (inputTodo.value.trim() !== ``) {
         todoList.innerHTML = '';
         todos.push(inputTodo.value.trim());
-        render();
+        todoUptate();
     }
     else {
         alert("Please enter a task!");
@@ -44,12 +47,23 @@ function createTodo() {
 function sortTodos() {
     todoList.innerHTML = ``;
     todos.sort();
-    render();
+    todoUptate();
 }
-sort.addEventListener('click', sortTodos)
+plusBtn.addEventListener('click',  function () {
+    inputTodo.focus();
+});
+
+btnDeleteVal.addEventListener('click',()=>{
+    inputTodo.value = ``;
+});
+
+sort.addEventListener('click', sortTodos);
+
 addTodo.addEventListener("click", createTodo);
+
 document.addEventListener('keyup', function (e) {
     if (e.key === `Enter`) {
         createTodo()
+       inputTodo.blur()
     }
 });

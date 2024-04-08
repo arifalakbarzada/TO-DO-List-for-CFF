@@ -2,6 +2,7 @@
 
 :root {
     --violet-color: #833AE0;
+    --full-width: -webkit-fill-available;
 }
 
 body {
@@ -36,8 +37,8 @@ main {
 }
 
 .inputTodo {
-    width: 197px;
-    height: 30px;
+    width: var(--full-width);
+    /* height: 30px; */
     border-radius: 10px;
     padding: 10px;
     border: 1px solid #C4C4C4;
@@ -48,6 +49,7 @@ main {
 #btnDeleteVal {
     background: transparent;
     border: none;
+    font-size: 20px;
 }
 
 h1 {
@@ -69,24 +71,31 @@ h1 {
     color: #fff;
     background-color: #9953F1;
 }
-.delete{
+
+.delete {
     background: transparent;
     border: 1px solid gray;
     border-radius: 50%;
     width: 20px;
     height: 20px;
 }
-.delete:hover{
+
+.delete:hover {
     background: var(--violet-color);
     color: #fff;
     border: none;
 }
+
 .add {
     margin: 10px;
     border-radius: 20px;
     position: relative;
 }
-
+.deleteButtonContent{
+    position: absolute;
+    right: 0;
+    top: 8px;
+}
 .sort {
     background: transparent;
 }
@@ -117,11 +126,12 @@ h1 {
 ul {
     list-style: none;
     border: none;
-
+    padding: 10px;
 }
 
 .inputContent {
     margin-bottom: 15px;
+    position: relative;
 }
 
 .todoListContent {
@@ -135,4 +145,5 @@ li {
     display: flex;
     justify-content: space-between;
     overflow-x: auto;
+    padding: 10px;
 }
