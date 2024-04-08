@@ -4,14 +4,20 @@ const btnDeleteVal = document.querySelector('#btnDeleteVal');
 const inputTodo = document.querySelector(".inputTodo");
 const addTodo = document.querySelector('.add-button');
 const sort = document.querySelector('#sort');
-const plusBtn = document.querySelector( ".plusBtn" );
+const plusBtn = document.querySelector(".plusBtn");
 let todos = [];
+
+if (localStorage.getItem('todos')) {
+    todos = JSON.parse(localStorage.getItem('todos'));
+    todoUptate();
+}
 
 if (todoList.innerHTML.trim() === ``) {
     todoListContent.style.display = `none`;
 }
 
 function todoUptate() {
+    todoList.innerHTML = '';
     todos.forEach((item, index) => {
         let elemLi = document.createElement("li");
         elemLi.innerText = item;
@@ -26,6 +32,7 @@ function todoUptate() {
         deleteBtn.addEventListener("click", function () {
             this.parentElement.remove();
             todos.splice(index, 1);
+            saveTodosToLocalStorage();
             if (todos.length === 0) {
                 todoListContent.style.display = `none`;
             }
@@ -35,25 +42,30 @@ function todoUptate() {
 
 function createTodo() {
     if (inputTodo.value.trim() !== ``) {
-        todoList.innerHTML = '';
         todos.push(inputTodo.value.trim());
+        saveTodosToLocalStorage();
         todoUptate();
-    }
-    else {
+    } else {
         alert("Please enter a task!");
         inputTodo.value = ``;
     }
 };
+
 function sortTodos() {
     todoList.innerHTML = ``;
     todos.sort();
     todoUptate();
 }
-plusBtn.addEventListener('click',  function () {
+
+function saveTodosToLocalStorage() {
+    localStorage.setItem('todos', JSON.stringify(todos));
+}
+
+plusBtn.addEventListener('click', function () {
     inputTodo.focus();
 });
 
-btnDeleteVal.addEventListener('click',()=>{
+btnDeleteVal.addEventListener('click', () => {
     inputTodo.value = ``;
 });
 
@@ -63,7 +75,7 @@ addTodo.addEventListener("click", createTodo);
 
 document.addEventListener('keyup', function (e) {
     if (e.key === `Enter`) {
-        createTodo()
-       inputTodo.blur()
+        createTodo();
+        inputTodo.blur();
     }
 });
